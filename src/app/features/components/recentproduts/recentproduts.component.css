@@ -1,0 +1,20 @@
+.cat {
+    color: var(--main-color);
+}
+
+.ti {
+    font-weight: 600;
+}
+
+@media (max-width: 700px) {
+    .row {
+        justify-content: center;
+    }
+
+    .row .card {
+        flex: 0 0 48%;
+        /* roughly 2 per row with small gap */
+        max-width: 48%;
+        margin: 1%;
+    }
+}

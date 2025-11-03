@@ -1,0 +1,9 @@
+footer{
+    background-color: #0c1c34;
+    color: white;
+}
+
+i:hover {
+    color: #0b5ed7;
+    cursor: pointer;
+}

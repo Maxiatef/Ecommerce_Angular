@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="mm">
+        <div class="slide mx-auto ">
+            <owl-carousel-o [options]="customOptions">
+                <ng-template carouselSlide *ngFor="let item of carouselItems">
+                    <img [src]="item.img" [alt]="item.alt" class="w-full rounded-xl h-48 object-cover" />
+                </ng-template>
+            </owl-carousel-o>
+        </div>
+        <div class="right ">
+            <img src="slider-image-1.jpeg" alt="">
+            <img src="slider-2.jpeg" alt="">
+        </div>
+    </div>
+
+    <h3>Shop popular categories</h3>
+    <div class="category-section container mx-auto mt-8">
+
+        <owl-carousel-o [options]="secondOptions" class="category-carousel">
+            <ng-template carouselSlide *ngFor="let item of categories">
+                <div class="category-card">
+                    <img [src]="item.img" [alt]="item.name" class="category-image" />
+                    <p class="category-label">{{ item.name }}</p>
+                </div>
+            </ng-template>
+        </owl-carousel-o>
+    </div>
+
+    <app-recentproduts></app-recentproduts>
+</div>

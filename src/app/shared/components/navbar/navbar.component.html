@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+
+    <div class="container-fluid">
+        <div class="container d-flex">
+            <img src="freshcart-logo.svg" class="mx-2" alt="">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item ">
+                        <a class="nav-link" routerLink="/home" [routerLinkActiveOptions]="{exact:true}"
+                            routerLinkActive="active">Home</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" routerLink="/cart" [routerLinkActiveOptions]="{exact:true}"
+                            routerLinkActive="active">Cart</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" routerLink="/products" [routerLinkActiveOptions]="{exact:true}"
+                            routerLinkActive="active">Products</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" routerLink="/categories" [routerLinkActiveOptions]="{exact:true}"
+                            routerLinkActive="active">Categories</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" routerLink="/brands" [routerLinkActiveOptions]="{exact:true}"
+                            routerLinkActive="active">Brands</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</nav>

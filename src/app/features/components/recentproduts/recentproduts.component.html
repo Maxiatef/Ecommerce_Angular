@@ -1,0 +1,25 @@
+@if(loading){
+<div class="d-flex justify-content-center align-items-center">
+    <app-loader></app-loader>
+</div>
+}@else{
+<div class="container">
+    <div class="row justify-content-center">
+        @for(item of recentproducts; track $index){
+        <div class=" card col-6 col-md-3 col-lg-2 text-center p-2 m-2">
+            <div class="card-body text-start">
+                <img [src]="item.images[0]" class="card-img-top" alt="{{item.title}}">
+                <p class="card-title cat mt-2"> {{item.category?.name}} </p>
+                <h6 class="card-text ti"> {{item.title}} </h6>
+                <div class="d-flex justify-content-between">
+                    <p class="card-text"> {{item.price}} EGP </p>
+                    <p class="card-text"> {{item.ratingsAverage}} ⭐ </p>
+                </div>
+
+
+            </div>
+        </div>
+        }
+    </div>
+</div>
+}

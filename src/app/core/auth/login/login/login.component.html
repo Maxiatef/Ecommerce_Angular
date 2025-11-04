@@ -1,0 +1,25 @@
+<br>
+<div class="container">
+    <h2>Login</h2>
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com"
+            [(ngModel)]="email">
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlInput2" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleFormControlInput2" placeholder="Password"
+            [(ngModel)]="password">
+    </div>
+    <p>
+        Don't have an account?
+        <a routerLink="/register" style="color: var(--main-color);">Register here</a>
+    </p>
+    <button type="submit" class="btn ms-auto d-block text-white" style="background-color: var(--main-color);"
+        (click)="login()">Login</button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>

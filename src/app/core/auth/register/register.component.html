@@ -1,0 +1,109 @@
+<br>
+<div class="container">
+    <h2>Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Name</label>
+            <input formControlName="name" type="text" class="form-control" id="exampleFormControlInput1"
+                placeholder="Enter your name">
+            @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched)
+            {
+            @if (registerForm.get('name')?.errors?.['required'])
+            {
+            <div class="alert alert-danger">Name is required</div>
+            }
+            @if (registerForm.get('name')?.errors?.['minlength'])
+            {
+            <div class="alert alert-danger">Name must be at least 3 characters long</div>
+            }
+            @if (registerForm.get('name')?.errors?.['maxlength'])
+            {
+            <div class="alert alert-danger">Name can't exceed 25 characters</div>
+            }
+            }
+
+
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+            <input formControlName="email" type="email" class="form-control" id="exampleFormControlInput2"
+                placeholder="name@example.com">
+            @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched)
+            {
+            @if (registerForm.get('email')?.errors?.['required'])
+            {
+            <div class="alert alert-danger">Email is required</div>
+            }
+            @if (registerForm.get('email')?.errors?.['email'])
+            {
+            <div class="alert alert-danger">Email must be a valid email address</div>
+            }
+            }
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Password</label>
+            <input formControlName="password" type="password" class="form-control" id="exampleFormControlInput3"
+                placeholder="Enter your password">
+            @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched)
+            {
+            <ul class="alert alert-danger">
+                @if (registerForm.get('password')?.errors?.['required'])
+                {
+                <li>Password is required</li>
+                }
+                @if (registerForm.get('password')?.errors?.['minlength'])
+                {
+                <li>Password must be at least 6 characters long</li>
+                }
+                @if (registerForm.get('password')?.errors?.['pattern'])
+                {
+                <li>Password must contain at least one uppercase letter, one lowercase letter, one number, and one
+                    special character</li>
+                }
+            </ul>
+
+            }
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Confirm password</label>
+            <input formControlName="rePassword" type="password" class="form-control" id="exampleFormControlInput4"
+                placeholder="Enter your password again">
+            @if ( registerForm.get('rePassword')?.touched && (registerForm.get('rePassword')?.errors ||
+            registerForm.getError("notmatched")))
+            {
+            <ul class="alert alert-danger">
+                @if (registerForm.get('rePassword')?.getError("required"))
+                {
+                <li>Please enter your password again</li>
+                }
+                @if (registerForm.getError("notmatched"))
+                {
+                <li>Passwords don't match</li>
+                }
+            </ul>
+            }
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Phone</label>
+            <input formControlName="phone" type="text" class="form-control" id="exampleFormControlInput5"
+                placeholder="Enter your phone number">
+            @if ( registerForm.get('phone')?.touched && registerForm.get("phone")?.errors )
+            {
+            <ul class="alert alert-danger">
+                @if (registerForm.get('phone')?.getError("required"))
+                {
+                <li>Phone number is required</li>
+                }
+                @if (registerForm.get('phone')?.getError("pattern"))
+
+                {
+                <li>Phone must be a valid Egyptian phone number</li>
+                }
+            </ul>
+            }
+        </div>
+        <button type="submit" class="btn ms-auto d-block text-white" style="background-color: var(--main-color);">Register</button>
+    </form>
+
+<br>
+</div>

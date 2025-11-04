@@ -1,1 +1,21 @@
-<p>cart works!</p>
+<div class="container ">
+    <div class="cart-container">
+        @for(item of cartItems; track $index) {
+        <div class="cart-item">
+            <img [src]="item.images[0]" alt="{{item.title}}" class="cart-image">
+
+            <div class="cart-details">
+                <h5 class="cart-title">{{item.title}}</h5>
+                <p class="cart-price">price : {{item.price}}</p>
+                <button class="remove-btn" (click)="removeitem(item)">🗑 Remove</button>
+            </div>
+
+            <div class="cart-quantity">
+                <button class="qty-btn">+</button>
+                <!-- <span>{{item.quantity || 1}}</span> -->
+                <button class="qty-btn">−</button>
+            </div>
+        </div>
+        }
+    </div>
+</div>

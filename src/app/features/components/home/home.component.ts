@@ -3,26 +3,27 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { RecentprodutsComponent } from "../recentproduts/recentproduts.component";
+import { OneproductService } from "../../services/oneproduct/oneproduct.service";
 import { LoaderComponent } from "../../../shared/components/loader/loader.component";
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, CarouselModule, RecentprodutsComponent, LoaderComponent],
+  imports: [CommonModule, RouterModule, CarouselModule, RecentprodutsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 
 
 export class HomeComponent {
+  constructor(private _oneproductService: OneproductService) { }
 
   carouselItems = [
     { img: 'slider-image-1.jpeg', alt: 'Slide 1' },
     { img: 'slider-2.jpeg', alt: 'Slide 2' },
     { img: 'slider-image-3.jpeg', alt: 'Slide 3' }
   ];
-
   // Owl carousel options
   customOptions: OwlOptions = {
     loop: true,
@@ -64,7 +65,16 @@ export class HomeComponent {
   };
 
 
+  getproductbyid(id: string) {
+    this._oneproductService.getProductById(id).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
 
-
+  }
 }
 

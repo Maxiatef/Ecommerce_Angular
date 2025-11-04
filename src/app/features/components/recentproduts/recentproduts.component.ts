@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { RecentproductService } from '../../services/product/recentproduct.service';
 import { Recentproductinterface } from '../../interfaces/recentproductinterface';
 import { LoaderComponent } from "../../../shared/components/loader/loader.component";
+import { OneproductService } from "../../services/oneproduct/oneproduct.service";
+import { CartService } from '../../services/cart/cart.service';
+
 
 
 @Component({
@@ -12,7 +15,7 @@ import { LoaderComponent } from "../../../shared/components/loader/loader.compon
   styleUrl: './recentproduts.component.css'
 })
 export class RecentprodutsComponent implements OnInit {
-  constructor(private _recentproductService: RecentproductService) { }
+  constructor(private _recentproductService: RecentproductService, private _oneproductService: OneproductService,private _cartService: CartService) { }
 
   recentproducts: Recentproductinterface[] = [];
   calling: any;
@@ -20,7 +23,7 @@ export class RecentprodutsComponent implements OnInit {
   getDataFromApi() {
 
     this.calling = this._recentproductService.getapiData().subscribe({
-      next: (data: any) => {    
+      next: (data: any) => {
         this.loading = false;
         console.log(data.data);
         this.recentproducts = data.data;
@@ -30,8 +33,22 @@ export class RecentprodutsComponent implements OnInit {
       complete: () => console.log('Completed')
     });
   }
+
+  getproductbyid(id: string) {
+    this._oneproductService.getProductById(id).subscribe({
+      next: (data) => {
+        console.log(data);
+        this._cartService?.addToCart(data.data);
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
+
   ngOnInit() {
     this.getDataFromApi();
   }
 
 }
+

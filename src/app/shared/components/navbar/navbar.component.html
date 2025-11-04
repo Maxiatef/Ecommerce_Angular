@@ -2,7 +2,7 @@
 
 
     <div class="container-fluid ">
-        <div class="container d-flex" >
+        <div class="container d-flex">
             <img src="freshcart-logo.svg" class="mx-2" alt="">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,22 +33,26 @@
                 </ul>
                 <div class="d-flex ms-auto ">
                     <div class="icons gap-2 d-flex justify-content-center align-items-center">
-                    <i class="fa-brands fa-instagram"></i>
-                    <i class="fa-brands fa-facebook"></i>
-                    <i class="fa-brands fa-tiktok"></i>
-                    <i class="fa-brands fa-twitter"></i>
-                    <i class="fa-brands fa-linkedin"></i>
-                    <i class="fa-brands fa-youtube"></i>
-                </div>
-            <div class="val mx-2 gap-2 d-flex justify-content-center align-items-center">
-                <a class="nav-link" routerLink="/login" [routerLinkActiveOptions]="{exact:true}"
+                        <i class="fa-brands fa-instagram"></i>
+                        <i class="fa-brands fa-facebook"></i>
+                        <i class="fa-brands fa-tiktok"></i>
+                        <i class="fa-brands fa-twitter"></i>
+                        <i class="fa-brands fa-linkedin"></i>
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <div class="val mx-2 gap-2 d-flex justify-content-center align-items-center">
+                        @if(islogged)
+                        {
+                        <a class="nav-link" routerLink="/signout" [routerLinkActiveOptions]="{exact:true}"
+                            routerLinkActive="active"(click)="signOut()" >SignOut</a>
+                        }@else if(!islogged){
+                        <a class="nav-link" routerLink="/login" [routerLinkActiveOptions]="{exact:true}"
                             routerLinkActive="active">Login</a>
-                <a class="nav-link" routerLink="/register" [routerLinkActiveOptions]="{exact:true}"
+                        <a class="nav-link" routerLink="/register" [routerLinkActiveOptions]="{exact:true}"
                             routerLinkActive="active">Register</a>
-                <a class="nav-link" routerLink="/signout" [routerLinkActiveOptions]="{exact:true}"
-                            routerLinkActive="active">SignOut</a>
-            </div>
-            </div>
+                        }
+                    </div>
+                </div>
 
             </div>
         </div>

@@ -3,6 +3,7 @@ import { LoginService } from '../../../services/login.service';
 import { FormsModule, NgModel } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { Token } from '@angular/compiler';
 
 @Component({
   selector: 'app-login',
@@ -17,11 +18,15 @@ export class LoginComponent implements OnInit {
 
 
 
-  constructor(private _loginService: LoginService,private _router: Router) { }
+  constructor(private _loginService: LoginService, private _router: Router) { }
   login() {
     this._loginService.login(this.email, this.password).subscribe({
       next: (response) => {
-        console.log('Login successful:', response);this._router.navigate(['/home']);
+        localStorage.setItem('token', response.token);
+        console.log('Login successful:', response);
+        this._router.navigate(['/home']);
+
+
       },
       error: (error) => {
         console.error('Login failed:', error);
@@ -31,4 +36,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.login();
   }
+
+
 }

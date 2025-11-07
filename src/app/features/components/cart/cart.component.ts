@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Recentproductinterface } from '../../interfaces/recentproductinterface';
-import { CartService } from '../../services/cart/cart.service';
+import { GetusercartService } from '../../services/cart/getusercart.service';
+import { Cartitem } from '../../interfaces/cartitem';
+import { AddtocartService } from '../../services/cart/addtocart.service';
+import { RemoveService } from '../../services/cart/remove.service';
+import { UpdatecountService } from '../../services/cart/updatecount.service';
+import { ClearcartService } from '../../services/cart/clearcart.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -9,22 +15,105 @@ import { CartService } from '../../services/cart/cart.service';
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
-export class CartComponent implements OnInit {
-  cartItems: Recentproductinterface[] = [];
+export class CartComponent implements OnInit, OnDestroy {
+  cartItems: Cartitem[] = [];
+  private cartSubscription?: Subscription;
 
-  constructor(private _cartService: CartService) { }
+  constructor(private _getusercartService: GetusercartService,
+    private _addtocartService: AddtocartService,
+    private _removeService: RemoveService,
+    private _updatecountService: UpdatecountService,
+    private _clearcartService: ClearcartService,
+  ) { }
 
-  removeitem(item: Recentproductinterface) {
-    const index = this.cartItems.indexOf(item);
-    if (index > -1) {
-      this.cartItems.splice(index, 1);
+  plusone(id: string) {
+    this._addtocartService.addToCart(id).subscribe({
+      next: (data) => {
+        console.log(data, 'added to cart');
+        // Refresh cart data immediately
+        this.loadCart();
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
+
+  minusone(id: string, count: number) {
+    if (count > 1) {
+      this._updatecountService.updateCount(id, count - 1).subscribe({
+        next: (data) => {
+          console.log(data, 'decremented count');
+          // Refresh cart data immediately
+          this.loadCart();
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
+    } else {
+      // If count is 1, remove the item instead
+      this.remove(id);
     }
-    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+  }
+
+  remove(id: string) {
+    this._removeService.removeFromCart(id).subscribe({
+      next: (data) => {
+        console.log(data, 'removed from cart');
+        // Refresh cart data immediately
+        this.loadCart();
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
+
+  clearCart(){
+    this._clearcartService.clearCart().subscribe({
+      next: (data) => {
+        console.log(data, 'cart cleared');
+        this.loadCart();
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
+  }
+
+  loadCart() {
+    this._getusercartService.getUserCart().subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.cartItems = data.data.products || [];
+        console.log(this.cartItems);
+      },
+      error: (error) => {
+        console.error(error);
+        this.cartItems = [];
+      }
+    });
   }
 
   ngOnInit() {
-    this.cartItems = this._cartService.getCartItems();
-    // console.log(this._cartService.getCartItems(),"cart component");
-    console.log(this.cartItems,'my cart')
+    // Initial load
+    this.loadCart();
+
+    // Subscribe to cart data changes from other components
+    this.cartSubscription = this._getusercartService.cartData$.subscribe({
+      next: (data: any) => {
+        if (data?.data?.products) {
+          this.cartItems = data.data.products;
+        }
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    // Clean up subscription
+    if (this.cartSubscription) {
+      this.cartSubscription.unsubscribe();
+    }
   }
 }

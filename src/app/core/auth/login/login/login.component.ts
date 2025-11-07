@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, PLATFORM_ID, Inject } from '@angular/core';
 import { LoginService } from '../../../services/login.service';
 import { FormsModule, NgModel } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { Token } from '@angular/compiler';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +19,18 @@ export class LoginComponent implements OnInit {
 
 
 
-  constructor(private _loginService: LoginService, private _router: Router) { }
+  constructor(
+    private _loginService: LoginService,
+    private _router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) { }
+
   login() {
     this._loginService.login(this.email, this.password).subscribe({
       next: (response) => {
-        localStorage.setItem('token', response.token);
+        if (isPlatformBrowser(this.platformId)) {
+          localStorage.setItem('token', response.token);
+        }
         console.log('Login successful:', response);
         this._router.navigate(['/home']);
 

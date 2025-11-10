@@ -7,7 +7,7 @@
     <div class="row justify-content-center">
         @for(item of recentproducts; track $index){
         <div class=" card col-6 col-md-3 col-lg-2 text-center p-2 m-2">
-            <div class="card-body text-start">
+            <div class="card-body text-start" routerLink="/specificproduct/{{item._id}}">
                 <img [src]="item.images[0]" class="card-img-top" alt="{{item.title}}">
                 <p class="card-title cat mt-2"> {{item.category?.name}} </p>
                 <h6 class="card-text ti"> {{item.title}} </h6>
@@ -15,7 +15,7 @@
                     <p class="card-text"> {{item.price}} EGP </p>
                     <p class="card-text"> {{item.ratingsAverage}} ⭐ </p>
                 </div>
-                <div class="btn btn-info text-white p-md-2" (click)="addToCart(item._id)">Add to Cart <i class="fa-solid
+                <div class="btn btn-info text-white p-md-2" (click)="addToCart(item._id); $event.stopPropagation()">Add to Cart <i class="fa-solid
                     fa-cart-shopping"></i> </div>
             </div>
         </div>

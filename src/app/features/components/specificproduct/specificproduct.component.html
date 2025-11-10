@@ -1,0 +1,107 @@
+@if(loading) {
+<div class="d-flex justify-content-center align-items-center">
+    <app-loader></app-loader>
+</div>
+} @else if(product) {
+<div class="container my-5">
+    <div class="row">
+        <!-- Product Images Section -->
+        <div class="col-md-6">
+            <div class="product-images">
+                <!-- Main Image -->
+                <div class="main-image mb-3">
+                    <img [src]="selectedImage" [alt]="product.title" class="img-fluid rounded shadow">
+                </div>
+                
+                <!-- Thumbnail Images -->
+                <div class="thumbnail-container d-flex gap-2 flex-wrap">
+                    @for(image of product.images; track $index) {
+                    <div class="thumbnail" [class.active]="selectedImage === image" (click)="selectImage(image)">
+                        <img [src]="image" [alt]="product.title" class="img-fluid rounded">
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Details Section -->
+        <div class="col-md-6">
+            <div class="product-details">
+                <!-- Category & Brand -->
+                <div class="mb-2">
+                    <span class="badge bg-light text-dark me-2">
+                        <i class="fa-solid fa-layer-group me-1"></i>{{product.category.name}}
+                    </span>
+                    <span class="badge bg-light text-dark">
+                        <i class="fa-solid fa-tag me-1"></i>{{product.brand.name}}
+                    </span>
+                </div>
+
+                <!-- Product Title -->
+                <h2 class="product-title mb-3">{{product.title}}</h2>
+
+                <!-- Rating -->
+                <div class="rating mb-3">
+                    <span class="rating-stars">
+                        @for(star of [1,2,3,4,5]; track $index) {
+                            @if(star <= product.ratingsAverage) {
+                                <i class="fa-solid fa-star rating-color"></i>
+                            } @else if(star - product.ratingsAverage < 1) {
+                                <i class="fa-solid fa-star-half-stroke rating-color"></i>
+                            } @else {
+                                <i class="fa-regular fa-star rating-color"></i>
+                            }
+                        }
+                    </span>
+                    <span class="rating-text ms-2">
+                        {{product.ratingsAverage}} 
+                        <span class="text-muted">({{product.ratingsQuantity}} reviews)</span>
+                    </span>
+                </div>
+
+                <!-- Price -->
+                <div class="price-section mb-4">
+                    <h3 class="price text-main mb-0">
+                        {{product.price}} <span class="currency">EGP</span>
+                    </h3>
+                </div>
+
+                <!-- Description -->
+                <div class="description mb-4">
+                    <h5 class="mb-2">Description</h5>
+                    <p class="text-muted">{{product.description}}</p>
+                </div>
+
+                <!-- Add to Cart Button -->
+                <div class="actions">
+                    <button class="btn btn-primary btn-lg w-100 add-to-cart-btn" (click)="addToCart(productId)">
+                        <i class="fa-solid fa-cart-shopping me-2"></i>
+                        Add to Cart
+                    </button>
+                </div>
+
+                <!-- Product Features -->
+                <div class="product-features mt-4">
+                    <div class="feature-item d-flex align-items-center mb-2">
+                        <i class="fa-solid fa-truck text-main me-2"></i>
+                        <span class="text-muted">Free shipping on orders over 500 EGP</span>
+                    </div>
+                    <div class="feature-item d-flex align-items-center mb-2">
+                        <i class="fa-solid fa-rotate-left text-main me-2"></i>
+                        <span class="text-muted">30-day return policy</span>
+                    </div>
+                    <div class="feature-item d-flex align-items-center">
+                        <i class="fa-solid fa-shield-halved text-main me-2"></i>
+                        <span class="text-muted">Secure payment</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+} @else {
+<div class="container my-5 text-center">
+    <h3>Product not found</h3>
+    <p class="text-muted">The product you're looking for doesn't exist.</p>
+</div>
+}

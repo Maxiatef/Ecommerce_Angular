@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { RecentproductService } from '../../services/product/recentproduct.service';
 import { Recentproductinterface } from '../../interfaces/recentproductinterface';
 import { LoaderComponent } from "../../../shared/components/loader/loader.component";
 import { OneproductService } from "../../services/oneproduct/oneproduct.service";
 import { AddtocartService } from '../../services/cart/addtocart.service';
 import { GetusercartService } from '../../services/cart/getusercart.service';
+import { RouterLink } from "@angular/router";
+import { EventEmitter } from 'stream';
+import { Router } from 'express';
 
 
 
 @Component({
   selector: 'app-recentproduts',
   standalone: true,
-  imports: [LoaderComponent],
+  imports: [LoaderComponent, RouterLink],
   templateUrl: './recentproduts.component.html',
   styleUrl: './recentproduts.component.css'
 })
@@ -22,6 +25,8 @@ export class RecentprodutsComponent implements OnInit {
     private _addtocartService: AddtocartService,
     private _getusercartService: GetusercartService
   ) { }
+
+  productId! : string;
 
   recentproducts: Recentproductinterface[] = [];
   calling: any;
@@ -40,18 +45,6 @@ export class RecentprodutsComponent implements OnInit {
     });
   }
 
-  // getproductbyid(id: string) {
-  //   this._oneproductService.getProductById(id).subscribe({
-  //     next: (data) => {
-  //       console.log(data);
-
-  //     },
-  //     error: (error) => {
-  //       console.error(error);
-  //     }
-  //   });
-  // }
-
   addToCart(id: string) {
     this._addtocartService.addToCart(id).subscribe({
       next: (data) => {
@@ -64,6 +57,7 @@ export class RecentprodutsComponent implements OnInit {
       }
     });
   }
+
 
     ngOnInit() {
       this.getDataFromApi();

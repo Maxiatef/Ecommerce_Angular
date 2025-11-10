@@ -11,7 +11,10 @@ export const routes: Routes = [
     {path:'brands', loadComponent: () => import('./features/components/brands/brands.component').then(c => c.BrandsComponent)},
     {path:'login', loadComponent: () => import('./core/auth/login/login/login.component').then(c => c.LoginComponent)},
     {path:'register', loadComponent: () => import('./core/auth/register/register.component').then(c => c.RegisterComponent)},
+    {path:'specificproduct/:id', loadComponent: () => import('./features/components/specificproduct/specificproduct.component').then(c => c.SpecificproductComponent)},
 
+
+    
     {path:'**', loadComponent: () => import('./shared/components/notfound/notfound.component').then(c => c.NotfoundComponent)},
 
 ];

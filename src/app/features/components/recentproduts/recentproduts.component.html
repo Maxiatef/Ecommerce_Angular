@@ -1,22 +1,31 @@
 @if(loading){
 <div class="d-flex justify-content-center align-items-center">
-    <app-loader></app-loader>
+        <app-loader></app-loader>
 </div>
 }@else{
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row g-3 justify-content-center">
         @for(item of recentproducts; track $index){
-        <div class=" card col-6 col-md-3 col-lg-2 text-center p-2 m-2">
-            <div class="card-body text-start" routerLink="/specificproduct/{{item._id}}">
-                <img [src]="item.images[0]" class="card-img-top" alt="{{item.title}}">
-                <p class="card-title cat mt-2"> {{item.category?.name}} </p>
-                <h6 class="card-text ti"> {{item.title}} </h6>
-                <div class="d-flex justify-content-between">
-                    <p class="card-text"> {{item.price}} EGP </p>
-                    <p class="card-text"> {{item.ratingsAverage}} ⭐ </p>
+        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+            <div class="product-card h-100">
+                <a class="product-link d-block h-100" routerLink="/specificproduct/{{item._id}}">
+                    <div class="product-img-wrapper">
+                        <img [src]="item.images[0]" class="product-img" alt="{{item.title}}">
+                    </div>
+
+                    <div class="product-body p-3 text-start">
+                        <p class="mb-1 text-muted small">{{item.category.name}}</p>
+                        <h6 class="product-title mb-2">{{item.title}}</h6>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="price fw-semibold">{{item.price}} EGP</span>
+                            <span class="rating small text-muted">{{item.ratingsAverage}} ⭐</span>
+                        </div>
+                    </div>
+                </a>
+
+                <div class="p-3 pt-0">
+                    <button class="btn btn-outline-primary btn-sm w-100" (click)="addToCart(item._id); $event.stopPropagation()">Add to Cart <i class="fa-solid fa-cart-shopping ms-2"></i></button>
                 </div>
-                <div class="btn btn-info text-white p-md-2" (click)="addToCart(item._id); $event.stopPropagation()">Add to Cart <i class="fa-solid
-                    fa-cart-shopping"></i> </div>
             </div>
         </div>
         }

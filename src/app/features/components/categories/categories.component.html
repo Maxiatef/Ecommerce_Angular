@@ -1,1 +1,28 @@
-<p>categories works!</p>
+@if(loading){
+<div class="d-flex justify-content-center align-items-center">
+        <app-loader></app-loader>
+</div>}
+@else{
+<div class="container py-4">
+  <div class="row">
+    <div class="col-12 mb-3 text-center">
+      <p class="lead text-muted mb-2">Explore our categories to quickly discover products grouped by type, brand and use—curated for convenience and value.</p>
+      <p class="small text-muted">Click any category to view available products.</p>
+    </div>
+  </div>
+  
+  <div class="row g-4 justify-content-center">
+    @for(item of categories; track $index){
+    <div class="col-6 col-md-4 col-lg-3" routerLink="/specificcategory/{{item._id}}">
+      <div class="category-card">
+        <div class="category-img-wrapper">
+          <img [src]="item.image" class="category-img" [alt]="item.name">
+        </div>
+        <div class="category-content">
+          <h5 class="category-title">{{ item.name }}</h5>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>}

@@ -12,6 +12,8 @@ export const routes: Routes = [
     {path:'login', loadComponent: () => import('./core/auth/login/login/login.component').then(c => c.LoginComponent)},
     {path:'register', loadComponent: () => import('./core/auth/register/register.component').then(c => c.RegisterComponent)},
     {path:'specificproduct/:id', loadComponent: () => import('./features/components/specificproduct/specificproduct.component').then(c => c.SpecificproductComponent)},
+    {path:'specificcategory/:id', loadComponent: () => import('./features/components/specificcategory/specificcategory.component').then(c => c.SpecificcategoryComponent)},
+
 
 
     

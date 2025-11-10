@@ -1,0 +1,73 @@
+@if(loading){
+<div class="d-flex justify-content-center align-items-center">
+  <app-loader></app-loader>
+</div>
+}@else{
+<div class="container py-4">
+  <div class="row align-items-center mb-4">
+    <div class="col-12 col-md-4 mb-3 mb-md-0">
+      <div class="category-hero-img-wrapper">
+        <img [src]="item.image" class="category-hero-img" [alt]="item.name" />
+      </div>
+    </div>
+
+    <div class="col-12 col-md-8">
+      <h2 class="section-title">{{ item.name }}</h2>
+      <p class="lead text-muted mb-2">
+        Browse items in the {{ item.name }} brand — curated selections, top
+        brands and best deals to help you shop with confidence.
+      </p>
+      <p class="small text-muted">Showing {{ products.length }} product(s).</p>
+    </div>
+  </div>
+  @if(productloader){
+  <div class="d-flex justify-content-center align-items-center">
+    <app-loader></app-loader>
+  </div>
+  } @else{ @if(products.length === 0){
+  <div class="row">
+    <div class="col-12 text-center py-5 text-muted">
+      No products found from this brand.
+    </div>
+  </div>
+  }@else{
+  <div class="row g-3">
+    @for(product of products; track $index){
+    <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+      <div class="product-card h-100">
+        <a
+          class="product-link d-block h-100"
+          routerLink="/specificproduct/{{ product._id }}"
+        >
+          <div class="product-img-wrapper">
+            <img
+              [src]="product.images[0]"
+              class="product-img"
+              alt="{{ product.title }}"
+            />
+          </div>
+
+          <div class="product-body p-3 text-start">
+            <p class="mb-1 text-muted small">{{ product.category?.name }}</p>
+            <h6 class="product-title mb-2">{{ product.title }}</h6>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="price fw-semibold">{{ product.price }} EGP</span>
+              <span class="rating small text-muted"
+                >{{ product.ratingsAverage }} ⭐</span
+              >
+            </div>
+          </div>
+        </a>
+
+        <div class="p-3 pt-0">
+          <button class="btn btn-outline-primary btn-sm w-100" (click)="addToCart(product._id); $event.stopPropagation()">
+            Add to Cart <i class="fa-solid fa-cart-shopping ms-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  }}
+</div>
+}

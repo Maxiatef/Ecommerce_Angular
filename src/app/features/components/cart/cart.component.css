@@ -1,3 +1,10 @@
+.empty {
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+}
 .cart-container {
     display: flex;
     flex-direction: column;
@@ -73,4 +80,23 @@
 .qty-btn:hover {
     background-color: var(--main-color);
     color: white;
+}
+
+/* Cart summary (subtotal) styling */
+.cart-summary { min-width: 220px; }
+.summary-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 6px 18px rgba(18,38,63,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+.summary-row { font-size: 0.95rem; }
+.totalprice { font-weight: 700; color: var(--main-color); font-size: 1.05rem; }
+.summary-card .btn-primary { background-color: var(--main-color); border-color: var(--main-color); }
+.summary-card .btn-primary:hover { filter: brightness(0.95); }
+
+@media (max-width: 576px) {
+    .cart-summary { min-width: 160px; }
+    .totalprice { font-size: 1rem; }
 }

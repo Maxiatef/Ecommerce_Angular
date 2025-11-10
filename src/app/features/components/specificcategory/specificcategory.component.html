@@ -45,7 +45,7 @@
             </a>
 
             <div class="p-3 pt-0">
-              <button class="btn btn-outline-primary btn-sm w-100">Add to Cart <i class="fa-solid fa-cart-shopping ms-2"></i></button>
+              <button class="btn btn-outline-primary btn-sm w-100" (click)="addToCart(product._id); $event.stopPropagation()">Add to Cart <i class="fa-solid fa-cart-shopping ms-2"></i></button>
             </div>
           </div>
         </div>

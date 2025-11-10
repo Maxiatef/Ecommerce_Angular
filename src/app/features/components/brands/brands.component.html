@@ -1,1 +1,31 @@
-<p>brands works!</p>
+@if(loading){
+  <div class="d-flex justify-content-center align-items-center">
+    <app-loader></app-loader>
+  </div>
+}@else{
+  <div class="container py-4">
+    <div class="row">
+      <div class="col-12 mb-3 text-center">
+        <p class="lead text-muted mb-2">Browse by brand to find products from the manufacturers you trust. We display popular brands and their collections for easy browsing.</p>
+        <p class="small text-muted">Click a brand to see all products we carry from that manufacturer.</p>
+      </div>
+    </div>
+
+    <div class="row g-3 justify-content-center">
+      @for(item of brands; track $index){
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <div class="brand-card text-center h-100">
+          <a class="brand-link d-block h-100" routerLink="/specificbrand/{{item._id}}">
+            <div class="brand-img-wrap mx-auto">
+              <img [src]="item.image" class="brand-img" [alt]="item.name">
+            </div>
+            <div class="brand-body pt-2">
+              <h6 class="brand-name mb-0">{{ item.name }}</h6>
+            </div>
+          </a>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+}

@@ -1,52 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import { CategoriesserviceService } from '../../services/categories/categoriesservice.service';
+import { Component } from '@angular/core';
+import { Brands } from '../../interfaces/brands';
+import { BrandService } from '../../services/brands/brand.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Categories } from '../../interfaces/categories';
-import { CommonModule } from '@angular/common';
-import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 import { RecentproductService } from '../../services/product/recentproduct.service';
+import { LoaderComponent } from "../../../shared/components/loader/loader.component";
 import { Recentproductinterface } from '../../interfaces/recentproductinterface';
-import { GetusercartService } from '../../services/cart/getusercart.service';
 import { AddtocartService } from '../../services/cart/addtocart.service';
+import { GetusercartService } from '../../services/cart/getusercart.service';
 
 @Component({
-  selector: 'app-specificcategory',
+  selector: 'app-specificbrand',
   standalone: true,
-  imports: [CommonModule, LoaderComponent, RouterLink],
-  templateUrl: './specificcategory.component.html',
-  styleUrl: './specificcategory.component.css'
+  imports: [RouterLink, LoaderComponent],
+  templateUrl: './specificbrand.component.html',
+  styleUrl: './specificbrand.component.css',
 })
-export class SpecificcategoryComponent implements OnInit {
-  categoryId: string = '';
-  item!: Categories;
+export class SpecificbrandComponent {
+  brandId: string = '';
+  item!: Brands;
   products: Recentproductinterface[] = [];
   loading: boolean = true;
+  productloader: boolean = true;
   //recentproducts: Recentproductinterface[] = [];
   
 
   constructor(
-    private categoriesService: CategoriesserviceService,
+    private brandService: BrandService,
     private route: ActivatedRoute,
     private recentProductsService: RecentproductService,
     private _addtocartService: AddtocartService,
     private _getusercartService: GetusercartService
   ) {}
-
   ngOnInit() {
-    this.categoryId = (this.route.snapshot.paramMap.get('id') as string);
-    this.categoriesService.getspecificcategory(this.categoryId).subscribe({
+    this.brandId = this.route.snapshot.paramMap.get('id') as string;
+    this.brandService.getspecificbrand(this.brandId).subscribe({
       next: (data: any) => {
+        this.loading = false;
         this.item = data.data;
-        // Load all products and filter client-side by category id/name
+        console.log('brand', data);
         this.recentProductsService.getapiData().subscribe({
           next: (res: any) => {
+            this.productloader = false;
             const all = res.data || [];
             this.products = all.filter((p: any) => {
-              if (p.category && (p.category._id || p.category.id)) {
-                const cid = p.category._id || p.category.id;
-                return cid === this.categoryId;
+              if (p.brand && (p.brand._id || p.brand.id)) {
+                const bid = p.brand._id || p.brand.id; 
+                return bid === this.brandId;
+               
+                
               }
-              return p.category && p.category.name === this.item.name;
+              return p.brand && p.brand.name === this.item.name;
             });
             this.loading = false;
           },

@@ -1,25 +1,65 @@
 <div class="container">
-    <div class="d-flex justify-content-end me-4">
-        <div class="btn btn-danger mt-3 mb-1 ms-2 " (click)="clearCart()">Clear Cart</div>
+    @if(cartItems.length){
+    
+
+  <div class="d-flex justify-content-end me-4 align-items-start gap-3">
+    <div class="btn btn-danger mt-3 mb-1 ms-2" (click)="clearCart()">
+      Clear Cart
     </div>
-
-    <div class="cart-container">
-        @for(item of cartItems; track $index) {
-        <div class="cart-item">
-            <img [src]="item.product.imageCover" alt="{{item.product.title}}" class="cart-image">
-
-            <div class="cart-details">
-                <h5 class="cart-title">{{item.product.title}}</h5>
-                <p class="cart-price">{{item.price}} EGP</p>
-                <button class="remove-btn" (click)="remove(item.product._id)">🗑 Remove</button>
-            </div>
-
-            <div class="cart-quantity">
-                <button class="qty-btn" (click)="plusone(item.product._id)">+</button>
-                <span>{{item.count || 1}}</span>
-                <button class="qty-btn" (click)="minusone(item.product._id,item.count)">−</button>
-            </div>
-        </div>
-        }
+  </div>}
+@else {
+      <div class="row">
+    <div class="col-12 text-center py-5 text-muted">
+      <div class="empty">Your cart is empty.</div>
     </div>
+  </div>
+}
+  <div class="cart-container">
+    @for(item of cartItems; track $index) {
+    <div class="cart-item">
+      <img
+        [src]="item.product.imageCover"
+        alt="{{ item.product.title }}"
+        class="cart-image"
+      />
+
+      <div class="cart-details">
+        <h5 class="cart-title">{{ item.product.title }}</h5>
+        <p class="cart-price">{{ item.price }} EGP</p>
+        <button class="remove-btn" (click)="remove(item.product._id)">
+          🗑 Remove
+        </button>
+      </div>
+
+      <div class="cart-quantity">
+        <button class="qty-btn" (click)="plusone(item.product._id)">+</button>
+        <span>{{ item.count || 1 }}</span>
+        <button
+          class="qty-btn"
+          (click)="minusone(item.product._id, item.count)"
+        >
+          −
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+  @if(cartItems.length){
+  <div class="cart-summary mt-3">
+    <div class="summary-card">
+      <div
+        class="summary-row d-flex justify-content-between align-items-center"
+      >
+        <span class="text-muted">Subtotal</span>
+        <span class="totalprice">{{ totalpriceValue }} EGP</span>
+      </div>
+      <div class="text-end small text-muted mt-1">
+        Taxes & shipping calculated at checkout
+      </div>
+      <button class="btn btn-primary btn-sm w-100 mt-3 mb-2">
+        Proceed to Checkout
+      </button>
+    </div>
+    <br>
+  </div>}
 </div>

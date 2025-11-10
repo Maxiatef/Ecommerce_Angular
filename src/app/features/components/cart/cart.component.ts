@@ -7,24 +7,27 @@ import { RemoveService } from '../../services/cart/remove.service';
 import { UpdatecountService } from '../../services/cart/updatecount.service';
 import { ClearcartService } from '../../services/cart/clearcart.service';
 import { Subscription } from 'rxjs';
+import { count } from 'console';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
   imports: [],
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.css'
+  styleUrl: './cart.component.css',
 })
 export class CartComponent implements OnInit, OnDestroy {
   cartItems: Cartitem[] = [];
   private cartSubscription?: Subscription;
+  totalpriceValue: number = 0;
 
-  constructor(private _getusercartService: GetusercartService,
+  constructor(
+    private _getusercartService: GetusercartService,
     private _addtocartService: AddtocartService,
     private _removeService: RemoveService,
     private _updatecountService: UpdatecountService,
-    private _clearcartService: ClearcartService,
-  ) { }
+    private _clearcartService: ClearcartService
+  ) {}
 
   plusone(id: string) {
     this._addtocartService.addToCart(id).subscribe({
@@ -35,7 +38,7 @@ export class CartComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error(error);
-      }
+      },
     });
   }
 
@@ -49,7 +52,7 @@ export class CartComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           console.error(error);
-        }
+        },
       });
     } else {
       // If count is 1, remove the item instead
@@ -66,11 +69,11 @@ export class CartComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error(error);
-      }
+      },
     });
   }
 
-  clearCart(){
+  clearCart() {
     this._clearcartService.clearCart().subscribe({
       next: (data) => {
         console.log(data, 'cart cleared');
@@ -78,7 +81,7 @@ export class CartComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error(error);
-      }
+      },
     });
   }
 
@@ -92,7 +95,7 @@ export class CartComponent implements OnInit, OnDestroy {
       error: (error) => {
         console.error(error);
         this.cartItems = [];
-      }
+      },
     });
   }
 
@@ -105,9 +108,18 @@ export class CartComponent implements OnInit, OnDestroy {
       next: (data: any) => {
         if (data?.data?.products) {
           this.cartItems = data.data.products;
+          let total: number = 0;
+          for (let item of this.cartItems) {
+            total += item.price * item.count;
+
+
+          }
+          this.totalpriceValue = total;
         }
-      }
+      },
     });
+    {
+    }
   }
 
   ngOnDestroy() {

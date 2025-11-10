@@ -13,6 +13,7 @@ export const routes: Routes = [
     {path:'register', loadComponent: () => import('./core/auth/register/register.component').then(c => c.RegisterComponent)},
     {path:'specificproduct/:id', loadComponent: () => import('./features/components/specificproduct/specificproduct.component').then(c => c.SpecificproductComponent)},
     {path:'specificcategory/:id', loadComponent: () => import('./features/components/specificcategory/specificcategory.component').then(c => c.SpecificcategoryComponent)},
+    {path:'specificbrand/:id', loadComponent: () => import('./features/components/specificbrand/specificbrand.component').then(c => c.SpecificbrandComponent)},
 
 
 

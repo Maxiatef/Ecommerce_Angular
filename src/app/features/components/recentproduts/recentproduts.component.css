@@ -56,3 +56,47 @@
         margin: 1%;
     }
 }
+/* Toast container */
+.toast-container {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1100;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* Show state */
+.toast-container.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Toast box */
+.toast-box {
+  background-color: #0d6efd;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  padding: 0.75rem 1rem;
+  min-width: 240px;
+  max-width: 360px;
+}
+
+/* Toast body */
+.toast-body {
+  font-size: 0.9rem;
+}
+
+/* White close button */
+.btn-close-white {
+  filter: invert(1) grayscale(1) brightness(4);
+  background: transparent;
+  border: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+}

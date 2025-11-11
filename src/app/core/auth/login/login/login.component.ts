@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 import { Token } from '@angular/compiler';
 import { isPlatformBrowser } from '@angular/common';
+import { AuthStateService } from '../../../services/auth-state.service';
 
 @Component({
   selector: 'app-login',
@@ -22,14 +23,16 @@ export class LoginComponent implements OnInit {
   constructor(
     private _loginService: LoginService,
     private _router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private _authStateService: AuthStateService
   ) { }
 
   login() {
     this._loginService.login(this.email, this.password).subscribe({
       next: (response) => {
         if (isPlatformBrowser(this.platformId)) {
-          localStorage.setItem('token', response.token);
+          // Use AuthStateService to handle login
+          this._authStateService.login(response.token);
         }
         console.log('Login successful:', response);
         this._router.navigate(['/home']);

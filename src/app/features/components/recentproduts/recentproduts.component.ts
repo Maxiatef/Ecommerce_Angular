@@ -1,24 +1,29 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+
 import { RecentproductService } from '../../services/product/recentproduct.service';
-import { Recentproductinterface } from '../../interfaces/recentproductinterface';
-import { LoaderComponent } from "../../../shared/components/loader/loader.component";
-import { OneproductService } from "../../services/oneproduct/oneproduct.service";
+import { OneproductService } from '../../services/oneproduct/oneproduct.service';
 import { AddtocartService } from '../../services/cart/addtocart.service';
 import { GetusercartService } from '../../services/cart/getusercart.service';
-import { RouterLink } from "@angular/router";
-import { EventEmitter } from 'stream';
-import { Router } from 'express';
-
-
+import { Recentproductinterface } from '../../interfaces/recentproductinterface';
+import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-recentproduts',
   standalone: true,
-  imports: [LoaderComponent, RouterLink],
+  imports: [CommonModule, LoaderComponent, RouterLink],
   templateUrl: './recentproduts.component.html',
-  styleUrl: './recentproduts.component.css'
+  styleUrls: ['./recentproduts.component.css'],
 })
 export class RecentprodutsComponent implements OnInit {
+  recentproducts: Recentproductinterface[] = [];
+  loading = true;
+
+  toastVisible = false;
+  toastMessage = 'Item added to cart successfully!';
+  private toastTimer: any = null;
+
   constructor(
     private _recentproductService: RecentproductService,
     private _oneproductService: OneproductService,
@@ -26,42 +31,56 @@ export class RecentprodutsComponent implements OnInit {
     private _getusercartService: GetusercartService
   ) { }
 
-  productId! : string;
+  ngOnInit() {
+    this.getDataFromApi();
+  }
 
-  recentproducts: Recentproductinterface[] = [];
-  calling: any;
-  loading: boolean = true;
   getDataFromApi() {
-
-    this.calling = this._recentproductService.getapiData().subscribe({
+    this._recentproductService.getapiData().subscribe({
       next: (data: any) => {
         this.loading = false;
-        console.log(data.data);
-        this.recentproducts = data.data;
-        // console.log(this.recentproducts[0].category.name);
+        this.recentproducts = data.data || [];
       },
-      error: (error) => console.error('Error:', error),
-      complete: () => console.log('Completed')
+      error: (err) => {
+        this.loading = false;
+        console.error('Error fetching products:', err);
+      },
     });
   }
 
-  addToCart(id: string) {
+  addToCart(id: string, event?: Event) {
+    event?.stopPropagation();
+
     this._addtocartService.addToCart(id).subscribe({
       next: (data) => {
-        console.log(data, 'added to cart');
-        // Refresh cart to update count immediately
+        console.log('Added to cart:', data);
         this._getusercartService.refreshCart();
+        this.showToast('Item added to cart successfully!');
       },
       error: (error) => {
-        console.error(error);
-      }
+        console.error('Error adding to cart:', error);
+        this.showToast('Failed to add item to cart.');
+      },
     });
   }
 
+  showToast(message: string, duration: number = 3000) {
+    this.toastMessage = message;
+    this.toastVisible = true;
 
-    ngOnInit() {
-      this.getDataFromApi();
-    }
+    if (this.toastTimer) clearTimeout(this.toastTimer);
 
+    this.toastTimer = setTimeout(() => {
+      this.toastVisible = false;
+    }, duration);
   }
 
+  closeToast() {
+    this.toastVisible = false;
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+  }
+
+  trackById(index: number, item: any) {
+    return item?._id ?? index;
+  }
+}

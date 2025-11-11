@@ -8,6 +8,7 @@ import { UpdatecountService } from '../../services/cart/updatecount.service';
 import { ClearcartService } from '../../services/cart/clearcart.service';
 import { Subscription } from 'rxjs';
 import { count } from 'console';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -22,6 +23,7 @@ export class CartComponent implements OnInit, OnDestroy {
   totalpriceValue: number = 0;
 
   constructor(
+    private router: Router,
     private _getusercartService: GetusercartService,
     private _addtocartService: AddtocartService,
     private _removeService: RemoveService,
@@ -100,6 +102,12 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.warn('No token found, redirecting to login...');
+      this.router.navigate(['/login']);
+      return;
+    }
     // Initial load
     this.loadCart();
 

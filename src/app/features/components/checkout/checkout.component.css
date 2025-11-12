@@ -1,0 +1,7 @@
+/* Checkout page styles */
+.order-summary { background:#fff; border-radius:10px; padding:12px; box-shadow:0 6px 18px rgba(18,38,63,0.06); }
+.order-summary .border-bottom{ border-bottom:1px solid rgba(0,0,0,0.05); }
+
+@media (max-width:576px){
+  .order-summary{ padding:10px; }
+}

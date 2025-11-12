@@ -14,6 +14,7 @@ export const routes: Routes = [
     {path:'specificproduct/:id', loadComponent: () => import('./features/components/specificproduct/specificproduct.component').then(c => c.SpecificproductComponent)},
     {path:'specificcategory/:id', loadComponent: () => import('./features/components/specificcategory/specificcategory.component').then(c => c.SpecificcategoryComponent)},
     {path:'specificbrand/:id', loadComponent: () => import('./features/components/specificbrand/specificbrand.component').then(c => c.SpecificbrandComponent)},
+    {path:'checkout', loadComponent: () => import('./features/components/checkout/checkout.component').then(c => c.CheckoutComponent)},
 
 
 

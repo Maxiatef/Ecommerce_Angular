@@ -1,0 +1,60 @@
+@if(loading){
+  <div class="d-flex justify-content-center align-items-center py-5">
+    <app-loader></app-loader>
+  </div>
+}@else{
+  <div class="container py-4">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <h3 class="mb-3">Shipping details</h3>
+        <div class="mb-2">
+          <input type="text" class="form-control" placeholder="Full name" [(ngModel)]="address.name">
+        </div>
+        <div class="mb-2">
+          <input type="text" class="form-control" placeholder="Address line 1" [(ngModel)]="address.line1">
+        </div>
+        <div class="mb-2 d-flex gap-2">
+          <input type="text" class="form-control" placeholder="City" [(ngModel)]="address.city">
+          <input type="text" class="form-control" placeholder="Postal code" [(ngModel)]="address.postal">
+        </div>
+
+        <h5 class="mt-4">Payment method</h5>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="payment" id="card" value="card" [(ngModel)]="selectedPayment">
+          <label class="form-check-label" for="card">Credit / Debit Card</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="payment" id="paypal" value="paypal" [(ngModel)]="selectedPayment">
+          <label class="form-check-label" for="paypal">PayPal</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="payment" id="cod" value="cod" [(ngModel)]="selectedPayment">
+          <label class="form-check-label" for="cod">Cash on Delivery</label>
+        </div>
+
+        <button class="btn btn-primary mt-4" (click)="placeOrder()">Place Order</button>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <h3 class="mb-3">Order summary</h3>
+        <div class="order-summary">
+          @for(item of cartItems; track $index){
+          <div class="d-flex justify-content-between py-2 border-bottom">
+            <div>
+              <div class="fw-semibold">{{item.product.title}}</div>
+              <div class="small text-muted">Qty: {{item.count}}</div>
+            </div>
+            <div class="text-end">{{item.price * item.count}} EGP</div>
+          </div>
+          }
+
+          <div class="d-flex justify-content-between pt-3 fw-semibold">
+            <div>Subtotal</div>
+            <div>{{ subtotal }} EGP</div>
+          </div>
+          <div class="text-muted small">Taxes and shipping will be calculated at checkout.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

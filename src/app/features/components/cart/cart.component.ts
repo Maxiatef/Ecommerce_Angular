@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { Recentproductinterface } from '../../interfaces/recentproductinterface';
 import { GetusercartService } from '../../services/cart/getusercart.service';
 import { Cartitem } from '../../interfaces/cartitem';
@@ -7,6 +7,7 @@ import { RemoveService } from '../../services/cart/remove.service';
 import { UpdatecountService } from '../../services/cart/updatecount.service';
 import { ClearcartService } from '../../services/cart/clearcart.service';
 import { Subscription } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 import { count } from 'console';
 import { Router } from '@angular/router';
 
@@ -28,7 +29,8 @@ export class CartComponent implements OnInit, OnDestroy {
     private _addtocartService: AddtocartService,
     private _removeService: RemoveService,
     private _updatecountService: UpdatecountService,
-    private _clearcartService: ClearcartService
+  private _clearcartService: ClearcartService,
+  @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   plusone(id: string) {
@@ -87,6 +89,11 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
+  goToCheckout() {
+    // Navigate to checkout page
+    this.router.navigate(['/checkout']);
+  }
+
   loadCart() {
     this._getusercartService.getUserCart().subscribe({
       next: (data: any) => {
@@ -102,11 +109,14 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.warn('No token found, redirecting to login...');
-      this.router.navigate(['/login']);
-      return;
+    // Only access localStorage and perform navigation on the browser
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.warn('No token found, redirecting to login...');
+        this.router.navigate(['/login']);
+        return;
+      }
     }
     // Initial load
     this.loadCart();

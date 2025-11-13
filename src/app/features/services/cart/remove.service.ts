@@ -1,6 +1,6 @@
 import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { RecentproductService } from '../product/recentproduct.service';
+import { RecentproductService } from '../../../shared/services/product/recentproduct.service';
 import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({

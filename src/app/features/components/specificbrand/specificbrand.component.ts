@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { Brands } from '../../interfaces/brands';
 import { BrandService } from '../../services/brands/brand.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { RecentproductService } from '../../services/product/recentproduct.service';
+import { RecentproductService } from '../../../shared/services/product/recentproduct.service';
 import { LoaderComponent } from "../../../shared/components/loader/loader.component";
-import { Recentproductinterface } from '../../interfaces/recentproductinterface';
+import { Recentproductinterface } from '../../../shared/interfaces/recentproductinterface';
 import { AddtocartService } from '../../services/cart/addtocart.service';
 import { GetusercartService } from '../../services/cart/getusercart.service';
 

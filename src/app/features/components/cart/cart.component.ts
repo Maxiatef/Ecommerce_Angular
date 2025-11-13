@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
-import { Recentproductinterface } from '../../interfaces/recentproductinterface';
+import { Recentproductinterface } from '../../../shared/interfaces/recentproductinterface';
 import { GetusercartService } from '../../services/cart/getusercart.service';
 import { Cartitem } from '../../interfaces/cartitem';
 import { AddtocartService } from '../../services/cart/addtocart.service';

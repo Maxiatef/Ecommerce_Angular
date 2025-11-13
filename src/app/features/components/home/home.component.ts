@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-import { RecentprodutsComponent } from "../recentproduts/recentproduts.component";
-import { OneproductService } from "../../services/oneproduct/oneproduct.service";
+import { RecentprodutsComponent } from "../../../shared/components/recentproduts/recentproduts.component";
+import { OneproductService } from "../../../shared/services/oneproduct/oneproduct.service";
 import { LoaderComponent } from "../../../shared/components/loader/loader.component";
 
 

@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OneproductService } from '../../../shared/services/oneproduct/oneproduct.service';
+import { OneproductService } from '../../services/oneproduct/oneproduct.service';
 import { ActivatedRoute } from '@angular/router';
-import { Specificproduct } from '../../../shared/interfaces/specificproduct';
+import { Specificproduct } from '../../interfaces/specificproduct';
 import { CommonModule } from '@angular/common';
-import { AddtocartService } from '../../services/cart/addtocart.service';
-import { GetusercartService } from '../../services/cart/getusercart.service';
-import { LoaderComponent } from "../../../shared/components/loader/loader.component";
+import { AddtocartService } from '../../../features/services/cart/addtocart.service';
+import { GetusercartService } from '../../../features/services/cart/getusercart.service';
+import { LoaderComponent } from "../loader/loader.component";
 
 @Component({
   selector: 'app-specificproduct',

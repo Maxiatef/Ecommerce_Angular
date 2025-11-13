@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RecentprodutsComponent } from "../recentproduts/recentproduts.component";
+import { RecentprodutsComponent } from "../../../shared/components/recentproduts/recentproduts.component";
 
 @Component({
   selector: 'app-products',

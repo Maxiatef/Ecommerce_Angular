@@ -4,8 +4,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Categories } from '../../interfaces/categories';
 import { CommonModule } from '@angular/common';
 import { LoaderComponent } from '../../../shared/components/loader/loader.component';
-import { RecentproductService } from '../../services/product/recentproduct.service';
-import { Recentproductinterface } from '../../interfaces/recentproductinterface';
+import { RecentproductService } from '../../../shared/services/product/recentproduct.service';
+import { Recentproductinterface } from '../../../shared/interfaces/recentproductinterface';
 import { GetusercartService } from '../../services/cart/getusercart.service';
 import { AddtocartService } from '../../services/cart/addtocart.service';
 

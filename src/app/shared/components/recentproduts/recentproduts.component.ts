@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
-import { RecentproductService } from '../../../shared/services/product/recentproduct.service';
-import { OneproductService } from '../../../shared/services/oneproduct/oneproduct.service';
-import { AddtocartService } from '../../services/cart/addtocart.service';
-import { GetusercartService } from '../../services/cart/getusercart.service';
-import { Recentproductinterface } from '../../../shared/interfaces/recentproductinterface';
-import { LoaderComponent } from '../../../shared/components/loader/loader.component';
+import { RecentproductService } from '../../services/product/recentproduct.service';
+import { OneproductService } from '../../services/oneproduct/oneproduct.service';
+import { AddtocartService } from '../../../features/services/cart/addtocart.service';
+import { GetusercartService } from '../../../features/services/cart/getusercart.service';
+import { Recentproductinterface } from '../../interfaces/recentproductinterface';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-recentproduts',
